@@ -5,6 +5,7 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 
+// eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
