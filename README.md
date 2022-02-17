@@ -2,4 +2,4 @@
 [![Actions Status](https://github.com/evdokimoww/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/evdokimoww/frontend-project-lvl4/actions)
 
 ### Heroku app:
-https://nameless-journey-58512.herokuapp.com
+https://project-lvl4-evdokimoww.herokuapp.com
