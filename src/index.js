@@ -5,7 +5,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
-import App from './App.js';
+import App from './components/App.js';
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
