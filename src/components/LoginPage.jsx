@@ -1,10 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import {Alert, Button, Form} from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
-import {useAuth} from '../hooks/index.jsx';
-import {useNavigate} from 'react-router-dom';
+import { useAuth } from '../hooks/index.jsx';
+import { useNavigate } from 'react-router-dom';
+import routes from '../routes.js';
 
 const validate = Yup.object({
   username: Yup.string()
@@ -31,7 +32,7 @@ const LoginPage = () => {
     validationSchema: validate,
     onSubmit: async (values) => {
       try {
-        const res = await axios.post('/api/v1/login', values);
+        const res = await axios.post(routes.login(), values);
         localStorage.setItem('userId', JSON.stringify(res.data));
         logIn();
         setAuthFailed(false);

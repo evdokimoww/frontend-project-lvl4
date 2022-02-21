@@ -6,6 +6,8 @@ import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 import App from './components/App.js';
+import store from './slices/index.js'
+import { Provider } from 'react-redux';
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
@@ -13,6 +15,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('chat')
-);
+  <Provider store={store}>
+    <App />
+  </Provider>,
+document.getElementById('chat')
+)
+;
