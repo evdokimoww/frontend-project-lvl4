@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
 import axios from 'axios';
-import { useAuth } from '../hooks/index.jsx';
+import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 
@@ -49,7 +49,7 @@ const LoginPage = () => {
   });
 
   return (
-    <>
+    <Container>
       <h1>Login</h1>
       <Form onSubmit={formik.handleSubmit}>
         {
@@ -97,7 +97,7 @@ const LoginPage = () => {
           Submit
         </Button>
       </Form>
-    </>
+    </Container>
   );
 };
 

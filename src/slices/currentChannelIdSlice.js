@@ -16,6 +16,6 @@ const currentChannelIdSlice = createSlice({
   }
 })
 
-export const selectors = currentChannelIdAdapter.getSelectors((state) => state.currentChannelId);
+export const selector = currentChannelIdAdapter.getSelectors((state) => state.currentChannelId);
 export const { updateCurrentChannelId } = currentChannelIdSlice.actions;
 export default currentChannelIdSlice.reducer;

@@ -19,6 +19,7 @@ const buildState = (defaultState) => {
     currentChannelId: generalChannelId,
     users: [
       { id: 1, username: 'admin', password: 'admin' },
+      { id: 2, username: 'admin1', password: 'admin1' },
     ],
   };
 
@@ -45,6 +46,7 @@ export default (app, defaultState = {}) => {
     console.log({ 'socket.id': socket.id });
 
     socket.on('newMessage', (message, acknowledge = _.noop) => {
+      console.log(message)
       const messageWithId = {
         ...message,
         id: getNextId(),
