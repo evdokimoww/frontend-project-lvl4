@@ -16,13 +16,19 @@ const SocketContextProvider = ({children, socket}) => {
   }, [])
 
   const sendMessage = (messageText, currentChat, username) => {
-    socket.emit('newMessage', { messageText, chatId: currentChat, author: username }, (response) => {
+    socket.emit('newMessage', { messageText, channelId: currentChat, author: username }, (response) => {
       console.log(response);
     });
   }
 
   const createNewChannel = (name) => {
     socket.emit('newChannel', { name }, (response) => {
+      console.log(response);
+    });
+  }
+
+  const removeChannel = (id) => {
+    socket.emit('removeChannel', { id }, (response) => {
       console.log(response);
     });
   }
@@ -35,9 +41,13 @@ const SocketContextProvider = ({children, socket}) => {
     socket.on('newChannel', (channel) => {
       dispatch(channelActions.addChannel(channel));
     })
+
+    socket.on('removeChannel', (channel) => {
+      dispatch(channelActions.removeChannel(channel));
+    })
   }, [socket])
 
-  return <SocketContext.Provider value={{sendMessage, createNewChannel}}>
+  return <SocketContext.Provider value={{sendMessage, createNewChannel, removeChannel}}>
     {children}
   </SocketContext.Provider>
 }

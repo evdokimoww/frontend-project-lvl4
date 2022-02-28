@@ -17,7 +17,7 @@ export const ChatButton = ({channel, currentChat, updateChannel}) => {
 };
 
 
-export const DropdownChatButton = ({channel, currentChat, updateChannel}) => {
+export const DropdownChatButton = ({channel, currentChat, updateChannel, showModal}) => {
   const variant = channel.id === currentChat ? 'secondary' : 'light';
   const handleClick = channel.id === currentChat ? null : () => updateChannel(channel.id);
 
@@ -28,7 +28,7 @@ export const DropdownChatButton = ({channel, currentChat, updateChannel}) => {
       <Dropdown.Toggle split variant={variant} className={'noFocus'}/>
 
       <Dropdown.Menu>
-        <Dropdown.Item>Удалить</Dropdown.Item>
+        <Dropdown.Item onClick={() => showModal('removeChannel', {id: channel.id})}>Удалить</Dropdown.Item>
         <Dropdown.Item>Переименовать</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

@@ -32,6 +32,7 @@ export const ChatChannels = ({channels, currentChat, showModal}) => {
                   channel={channel}
                   currentChat={currentChat}
                   updateChannel={handleUpdateCurrentChannel}
+                  showModal={showModal}
                 />
                 : <ChatButton
                     channel={channel}

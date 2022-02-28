@@ -62,7 +62,7 @@ const ChatPage = () => {
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
   const currentChannelId = useSelector((state) => state.currentChannelId.id);
 
-  const currentMessages = allMessages.filter(({chatId}) => chatId === currentChannelId);
+  const currentMessages = allMessages.filter(({channelId}) => channelId === currentChannelId);
 
   if (!loggedIn) {
     return <Navigate to="login"/>
