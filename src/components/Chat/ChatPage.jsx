@@ -12,6 +12,7 @@ import { actions as messagesActions, selectors as messagesSelectors } from '../.
 import ChatChannels from './ChatChannels.jsx';
 import ChatMessages from './ChatMess';
 import { useSocket } from '../../hooks/useSocket.jsx';
+import getModal from '../Modals/modals.js'
 
 
 const getUserAuth = () => {
@@ -19,15 +20,28 @@ const getUserAuth = () => {
   if (userId && userId.token) {
     return {Authorization: `Bearer ${userId.token}`};
   }
-
   return {};
 }
 
+const renderModal = (modalInfo, hideModal) => {
+  if (!modalInfo.type) {
+    return null;
+  }
+
+  const Component = getModal(modalInfo.type);
+  return <Component modalInfo={modalInfo} onHide={hideModal} />;
+}
+
 const ChatPage = () => {
-  const {loggedIn, logOut} = useAuth();
+  const {loggedIn} = useAuth();
   const dispatch = useDispatch();
-  const { sendMessage } = useSocket();
+  const { sendMessage, createNewChannel } = useSocket();
+
   const [username, setUsername] = useState(null);
+
+  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
+  const hideModal = () => setModalInfo({ type: null, item: null });
+  const showModal = (type, item = null) => setModalInfo({ type, item });
 
   useEffect(async () => {
     if (loggedIn) {
@@ -54,12 +68,23 @@ const ChatPage = () => {
     return <Navigate to="login"/>
   }
 
-
-  return <Container className={'rounded border my-4'}>
-    <a onClick={() => logOut()}>выйти</a>
-    <Row>
-      <ChatChannels channels={channels} currentChat={currentChannelId}/>
-      <ChatMessages messages={currentMessages} sendMessage={sendMessage} currentChat={currentChannelId} username={username}/>
+  return <Container className={'overflow-hidden h-100 my-4 rounded shadow'}>
+    <Row className={'h-100 bg-white'}>
+      <ChatChannels
+        channels={channels}
+        currentChat={currentChannelId}
+        createNewChannel={createNewChannel}
+        showModal={showModal}
+      />
+      <ChatMessages
+        messages={currentMessages}
+        sendMessage={sendMessage}
+        currentChat={currentChannelId}
+        username={username}
+      />
+      {
+        renderModal(modalInfo, hideModal)
+      }
     </Row>
   </Container>
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { Alert, Button, Container, Form } from 'react-bootstrap';
+import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -48,57 +48,70 @@ const LoginPage = () => {
     },
   });
 
-  return (
-    <Container>
-      <h1>Login</h1>
-      <Form onSubmit={formik.handleSubmit}>
-        {
-          authFailed
-            ? <Alert variant={'danger'}>the username or password is incorrect</Alert>
-            : null
-        }
-        <Form.Group controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.username}
-            ref={inputRef}
-            isInvalid={authFailed}
-          />
-          {
-            formik.touched.username && formik.errors.username
-              ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.username}</Form.Control.Feedback>
-              : null
-          }
-        </Form.Group>
+  return <Container className={'h-100'} fluid>
+      <Row className={'row justify-content-center align-content-center h-100'}>
+        <Col xs md='8' xxl='6'>
+          <Card className={'shadow-sm'}>
+            <Card.Body>
+              <Row className={'p-5'}>
+                <Col>123</Col>
+                <Col>
+                  <Card.Title className={'text-center mb-5'}>
+                    <h2>Войти</h2>
+                  </Card.Title>
+                  <Form className={'form-floating'} onSubmit={formik.handleSubmit}>
+                    {
+                      authFailed
+                        ? <Alert variant={'danger'}>the username or password is incorrect</Alert>
+                        : null
+                    }
+                    <Form.Group controlId="username" className={'form-floating mb-3'}>
+                      <Form.Control
+                        type="text"
+                        placeholder="Ваш ник"
+                        name="username"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.username}
+                        ref={inputRef}
+                        isInvalid={authFailed}
+                      />
+                      <Form.Label>Ваш ник</Form.Label>
+                      {
+                        formik.touched.username && formik.errors.username
+                          ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.username}</Form.Control.Feedback>
+                          : null
+                      }
+                    </Form.Group>
 
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            isInvalid={authFailed}
-          />
-          {
-            formik.touched.password && formik.errors.password
-              ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.password}</Form.Control.Feedback>
-              : null
-          }
-        </Form.Group>
-        <Button className='mt-3' variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Container>
-  );
+                    <Form.Group controlId="password" className={'form-floating mb-4'}>
+                      <Form.Control
+                        type="password"
+                        placeholder="Пароль"
+                        name="password"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.password}
+                        isInvalid={authFailed}
+                      />
+                      <Form.Label>Пароль</Form.Label>
+                      {
+                        formik.touched.password && formik.errors.password
+                          ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.password}</Form.Control.Feedback>
+                          : null
+                      }
+                    </Form.Group>
+                    <Button className={'w-100'} variant="outline-primary" type="submit">
+                      Submit
+                    </Button>
+                  </Form>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+  </Container>
 };
 
 export default LoginPage;
