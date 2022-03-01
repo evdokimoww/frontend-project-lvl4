@@ -16,7 +16,7 @@ export const ChatChannels = ({channels, currentChat, showModal}) => {
       <span>Каналы</span>
       <Button
         variant={'outline-primary'}
-        className={'btn-sm px-2 py-0'}
+        className={'btn-sm px-2 py-0 noFocus'}
         onClick={() => showModal('addChannel')}
       >
         +

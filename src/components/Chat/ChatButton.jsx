@@ -29,7 +29,7 @@ export const DropdownChatButton = ({channel, currentChat, updateChannel, showMod
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => showModal('removeChannel', {id: channel.id})}>Удалить</Dropdown.Item>
-        <Dropdown.Item>Переименовать</Dropdown.Item>
+        <Dropdown.Item onClick={() => showModal('renameChannel', channel)}>Переименовать</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   )

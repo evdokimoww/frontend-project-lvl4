@@ -15,6 +15,7 @@ const ChatMessages = ({messages, sendMessage, currentChat, username}) => {
     e.preventDefault();
     sendMessage(text, currentChat, username);
     setText('');
+    setBtnDisabled(true);
   }
 
   return <Col className={'h-100 p-0'}>

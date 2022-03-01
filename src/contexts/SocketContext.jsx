@@ -33,6 +33,12 @@ const SocketContextProvider = ({children, socket}) => {
     });
   }
 
+  const renameChannel = ({id, name}) => {
+    socket.emit('renameChannel', { id, name }, (response) => {
+      console.log(response);
+    });
+  }
+
   useEffect(() => {
     socket.on('newMessage', (message) => {
       dispatch(messageActions.addMessage(message));
@@ -45,9 +51,13 @@ const SocketContextProvider = ({children, socket}) => {
     socket.on('removeChannel', (channel) => {
       dispatch(channelActions.removeChannel(channel));
     })
+
+    socket.on('renameChannel', (channel) => {
+      dispatch(channelActions.renameChannel(channel));
+    })
   }, [socket])
 
-  return <SocketContext.Provider value={{sendMessage, createNewChannel, removeChannel}}>
+  return <SocketContext.Provider value={{sendMessage, createNewChannel, removeChannel, renameChannel}}>
     {children}
   </SocketContext.Provider>
 }
