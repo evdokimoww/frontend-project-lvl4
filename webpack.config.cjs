@@ -35,12 +35,21 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          { loader: MiniCssExtractPlugin.loader },
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
-          { loader: 'sass-loader' },
+          {loader: MiniCssExtractPlugin.loader},
+          {loader: 'css-loader'},
+          {loader: 'postcss-loader'},
+          {loader: 'sass-loader'},
         ],
       },
+      {
+        test: /\.(jpg|png|gif|woff|eot|ttf|svg)/,
+        use: {
+          loader: 'url-loader', // this need file-loader
+          options: {
+            limit: 50000
+          },
+        }
+      }
     ],
   },
 };

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
+import image from '../../assets/images/reg.png'
 
 const validate = Yup.object({
   username: Yup.string()
@@ -17,7 +18,6 @@ const validate = Yup.object({
   confirmPassword: Yup.string()
     .required('No password provided.')
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-
 });
 
 const SignUpPage = () => {
@@ -57,7 +57,9 @@ const SignUpPage = () => {
         <Card className={'shadow-sm'}>
           <Card.Body>
             <Row className={'p-5'}>
-              <Col>123</Col>
+              <Col md={6} className={'d-flex align-items-center justify-content-center'}>
+                <img src={image} width={'160px'} alt=""/>
+              </Col>
               <Col>
                 <Card.Title className={'text-center mb-5'}>
                   <h2>Регистрация</h2>

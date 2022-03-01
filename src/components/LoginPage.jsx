@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
+import image from '../../assets/images/login.png';
 
 const validate = Yup.object({
   username: Yup.string()
@@ -54,7 +55,9 @@ const LoginPage = () => {
           <Card className={'shadow-sm'}>
             <Card.Body>
               <Row className={'p-5'}>
-                <Col>123</Col>
+                <Col md={6} className={'d-flex align-items-center justify-content-center'}>
+                  <img src={image} width={'160px'} alt=""/>
+                </Col>
                 <Col>
                   <Card.Title className={'text-center mb-5'}>
                     <h2>Войти</h2>
