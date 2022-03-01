@@ -6,6 +6,7 @@ import ChatPage from './Chat/ChatPage.jsx';
 import AuthProvider from '../contexts/AuthContext.jsx';
 import SocketContextProvider from '../contexts/SocketContext.jsx';
 import Header from './Header.jsx';
+import SignUpPage from './SignUpPage.jsx';
 
 
 export default function App({socket}) {
@@ -18,6 +19,7 @@ export default function App({socket}) {
               <Routes>
                 <Route exact path="/" element={<ChatPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/signup" element={<SignUpPage/>}/>
                 <Route path="*" element={<NoMatchPage/>}/>
               </Routes>
           </BrowserRouter>

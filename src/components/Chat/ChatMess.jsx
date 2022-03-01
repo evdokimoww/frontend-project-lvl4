@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 
-const ChatMessages = ({messages, sendMessage, currentChat, username}) => {
+const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
 
@@ -13,7 +13,7 @@ const ChatMessages = ({messages, sendMessage, currentChat, username}) => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    sendMessage(text, currentChat, username);
+    sendMessage(text, currentChannelId, username);
     setText('');
     setBtnDisabled(true);
   }
@@ -21,7 +21,7 @@ const ChatMessages = ({messages, sendMessage, currentChat, username}) => {
   return <Col className={'h-100 p-0'}>
     <div className={'d-flex flex-column h-100'}>
       <div className={'p-3 mb-4 shadow-sm'}>
-        header
+        <strong># header</strong>
       </div>
 
       <div className={'overflow-auto px-5'}>

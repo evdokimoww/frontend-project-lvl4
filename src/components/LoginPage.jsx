@@ -102,12 +102,18 @@ const LoginPage = () => {
                       }
                     </Form.Group>
                     <Button className={'w-100'} variant="outline-primary" type="submit">
-                      Submit
+                      Войти
                     </Button>
                   </Form>
                 </Col>
               </Row>
             </Card.Body>
+            <Card.Footer className={'p-4'}>
+              <div className="text-center">
+                <span>Нет аккаунта? </span>
+                <a href={'/signup'}>Регистрация</a>
+              </div>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>

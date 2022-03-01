@@ -61,7 +61,6 @@ const ChatPage = () => {
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
   const currentChannelId = useSelector((state) => state.currentChannelId.id);
-
   const currentMessages = allMessages.filter(({channelId}) => channelId === currentChannelId);
 
   if (!loggedIn) {
@@ -79,8 +78,8 @@ const ChatPage = () => {
       <ChatMessages
         messages={currentMessages}
         sendMessage={sendMessage}
-        currentChat={currentChannelId}
         username={username}
+        currentChannelId={currentChannelId}
       />
       {
         renderModal(modalInfo, hideModal)

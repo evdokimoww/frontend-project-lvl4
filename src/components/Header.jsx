@@ -7,7 +7,7 @@ const Header = () => {
 
   return <Navbar bg="light" expand="lg" className={'shadow-sm bg-white'}>
     <Container>
-      <Navbar.Brand href="/">Chat</Navbar.Brand>
+      <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
       {
         loggedIn
           ? <Button variant={'primary'} onClick={() => logOut()}>Выйти</Button>
