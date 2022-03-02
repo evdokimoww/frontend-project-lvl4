@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
+
+const filterInit = () => {
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('ru'));
+}
 
 const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
+  filterInit();
+
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
-  const { t } = useTranslation('translation', { keyPrefix: 'chatPage.chatMessages' });
-
+  const {t} = useTranslation('translation', {keyPrefix: 'chatPage.chatMessages'});
+  const lastMessageRef = useRef();
 
   const handleChangeText = (e) => {
     const str = e.target.value;
@@ -16,10 +24,14 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    sendMessage(text, currentChannelId, username);
+    sendMessage(filter.clean(text), currentChannelId, username);
     setText('');
     setBtnDisabled(true);
   }
+
+  useEffect(async () => {
+    await lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages])
 
   return <Col className={'h-100 p-0'}>
     <div className={'d-flex flex-column h-100'}>
@@ -28,12 +40,21 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
           <strong># header</strong>
         </p>
         <span className={'text-muted'}>
-          {t('messageCounter.count', { count: messages.length})}
+          {t('messageCounter.count', {count: messages.length})}
         </span>
       </div>
 
-      <div className={'overflow-auto px-5'}>
-        {messages.map((message) => <div className={'mb-2'} key={message.id}><strong>{message.author}:</strong> {message.messageText}</div>)}
+      <div id={'message-box'} className={'overflow-auto px-5'}>
+        {
+          messages.map((message, index) => (
+            <div
+              className={'message mb-2'}
+              key={message.id}
+              ref={index === (messages.length - 1) ? lastMessageRef : null}
+            >
+              <strong>{message.author}:</strong> {message.messageText}
+            </div>))
+        }
       </div>
 
       <div className={'px-5 py-3 mt-auto'}>
