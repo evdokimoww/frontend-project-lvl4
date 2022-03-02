@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import image from '../../assets/images/login.png';
 import { useTranslation } from 'react-i18next';
+import { useToastify } from '../hooks/useToastify.jsx';
 
 const LoginPage = () => {
   const { logIn } = useAuth();
@@ -15,6 +16,8 @@ const LoginPage = () => {
   const inputRef = useRef();
   const [authFailed, setAuthFailed] = useState(false);
   const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
+  const { errorToast } = useToastify();
+
 
   const validate = Yup.object({
     username: Yup.string()
@@ -39,6 +42,9 @@ const LoginPage = () => {
         setAuthFailed(false);
         navigate('/');
       } catch (err) {
+        if (err.request) {
+          errorToast(t('networkError'))
+        }
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();

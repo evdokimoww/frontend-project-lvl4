@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import image from '../../assets/images/reg.png'
 import { useTranslation } from 'react-i18next';
+import { useToastify } from '../hooks/useToastify.jsx';
 
 const SignUpPage = () => {
   const {logIn} = useAuth();
@@ -16,6 +17,7 @@ const SignUpPage = () => {
   const [registrationFailed, setRegistrationFailed] = useState(false);
 
   const {t} = useTranslation('translation', {keyPrefix: 'signupPage'});
+  const { errorToast } = useToastify();
 
   const validate = Yup.object({
     username: Yup.string()
@@ -43,6 +45,9 @@ const SignUpPage = () => {
         setRegistrationFailed(false);
         navigate('/');
       } catch (err) {
+        if (err.request) {
+          errorToast(t('networkError'))
+        }
         if (err.isAxiosError && err.response.status === 409) {
           setRegistrationFailed(true);
           inputRef.current.select();

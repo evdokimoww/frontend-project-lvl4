@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { useToastify } from '../../hooks/useToastify.jsx';
 
 const RenameChannelModal = (props) => {
   const { onHide } = props;
@@ -21,6 +22,8 @@ const RenameChannelModal = (props) => {
   const channelNames = channels.map((el) => el.name);
 
   const { t } = useTranslation('translation', { keyPrefix: 'modals' });
+  const { successToast } = useToastify();
+
 
   const validate = Yup.object({
     body: Yup.string()
@@ -42,6 +45,7 @@ const RenameChannelModal = (props) => {
 
         renameChannel({id, name});
         onHide();
+        successToast(t('toastMessages.successRenameChannel'));
       }
       catch (err) {
         setValidationError(err.message);

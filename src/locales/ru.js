@@ -21,7 +21,8 @@ export default {
           loginForm: {
             usernameLabel: 'Имя пользователя',
             passwordLabel: 'Пароль',
-          }
+          },
+          networkError: 'Ошибка подключения'
         },
         signupPage: {
           signupTitle: 'Регистрация',
@@ -38,7 +39,8 @@ export default {
             usernameLabel: 'Имя пользователя',
             passwordLabel: 'Пароль',
             confirmLabel: 'Подтверждение пароля',
-          }
+          },
+          networkError: 'Ошибка подключения'
         },
         chatPage: {
           chatChannels: {
@@ -78,8 +80,13 @@ export default {
           removeChannelModal: {
             modalTitle: 'Удалить канал',
             modalWarning: 'Уверены?',
+          },
+          toastMessages: {
+            successCreateChannel: 'Канал успешно создан',
+            successRemoveChannel: 'Канал успешно удален',
+            successRenameChannel: 'Канал успешно переименован'
           }
-        }
+        },
       }
     }
 };

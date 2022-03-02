@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import store from './slices/index.js';
 import App from './components/App.js';
 import { I18nextProvider } from 'react-i18next';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
