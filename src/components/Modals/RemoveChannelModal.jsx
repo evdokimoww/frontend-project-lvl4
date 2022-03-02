@@ -1,11 +1,14 @@
 import React from 'react';
 import { useSocket } from '../../hooks/useSocket.jsx';
 import { Button, Modal } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannelModal = (props) => {
   const { onHide } = props;
   const { id } = props.modalInfo.item;
   const { removeChannel } = useSocket();
+  const { t } = useTranslation('translation', { keyPrefix: 'modals' });
+
 
   const handleRemoveChannel = () => {
     removeChannel(id);
@@ -14,14 +17,14 @@ const RemoveChannelModal = (props) => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('removeChannelModal.modalTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
-          <p className={'lead'}>Уверены?</p>
+          <p className={'lead'}>{t('removeChannelModal.modalWarning')}</p>
           <div className={'d-flex justify-content-end'}>
-            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>Закрыть</Button>
-            <Button type="submit" variant="danger" onClick={handleRemoveChannel}>Удалить</Button>
+            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
+            <Button type="submit" variant="danger" onClick={handleRemoveChannel}>{t('modalsButton.removeBtn')}</Button>
           </div>
       </Modal.Body>
 

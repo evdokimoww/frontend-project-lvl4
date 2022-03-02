@@ -7,24 +7,26 @@ import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import image from '../../assets/images/reg.png'
-
-const validate = Yup.object({
-  username: Yup.string()
-    .required('No username provided.')
-    .max(15, 'Must be 15 characters or less'),
-  password: Yup.string()
-    .required('No password provided.')
-    .min(6, 'Password is too short - should be 4 chars minimum.'),
-  confirmPassword: Yup.string()
-    .required('No password provided.')
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-});
+import { useTranslation } from 'react-i18next';
 
 const SignUpPage = () => {
   const {logIn} = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
   const [registrationFailed, setRegistrationFailed] = useState(false);
+
+  const {t} = useTranslation('translation', {keyPrefix: 'signupPage'});
+
+  const validate = Yup.object({
+    username: Yup.string()
+      .required(t('signupFormValidation.noUsername'))
+      .max(15, t('signupFormValidation.usernameMaxLength')),
+    password: Yup.string()
+      .required(t('signupFormValidation.noPassword'))
+      .min(6, t('signupFormValidation.passwordMaxLength')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('signupFormValidation.passwordsMustMatch'))
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -62,18 +64,18 @@ const SignUpPage = () => {
               </Col>
               <Col>
                 <Card.Title className={'text-center mb-5'}>
-                  <h2>Регистрация</h2>
+                  <h2>{t('signupTitle')}</h2>
                 </Card.Title>
                 <Form className={'form-floating'} onSubmit={formik.handleSubmit}>
                   {
                     registrationFailed
-                      ? <Alert variant={'danger'}>Пользователь с таким именем уже существует!</Alert>
+                      ? <Alert variant={'danger'}>{t('alertAlreadyExist')}</Alert>
                       : null
                   }
                   <Form.Group controlId="username" className={'form-floating mb-3'}>
                     <Form.Control
                       type="text"
-                      placeholder="Ваш ник"
+                      placeholder={t('signupForm.usernameLabel')}
                       name="username"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -81,11 +83,15 @@ const SignUpPage = () => {
                       ref={inputRef}
                       isInvalid={registrationFailed}
                     />
-                    <Form.Label>Ваш ник</Form.Label>
+                    <Form.Label>{t('signupForm.usernameLabel')}</Form.Label>
                     {
                       formik.touched.username && formik.errors.username
-                        ? <Form.Control.Feedback type="invalid"
-                                                 style={{display: 'block'}}>{formik.errors.username}</Form.Control.Feedback>
+                        ? <Form.Control.Feedback
+                          type="invalid"
+                          style={{display: 'block'}}
+                        >
+                          {formik.errors.username}
+                        </Form.Control.Feedback>
                         : null
                     }
                   </Form.Group>
@@ -93,18 +99,22 @@ const SignUpPage = () => {
                   <Form.Group controlId="password" className={'form-floating mb-4'}>
                     <Form.Control
                       type="password"
-                      placeholder="Пароль"
+                      placeholder={t('signupForm.passwordLabel')}
                       name="password"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
                       isInvalid={registrationFailed}
                     />
-                    <Form.Label>Пароль</Form.Label>
+                    <Form.Label>{t('signupForm.passwordLabel')}</Form.Label>
                     {
                       formik.touched.password && formik.errors.password
-                        ? <Form.Control.Feedback type="invalid"
-                                                 style={{display: 'block'}}>{formik.errors.password}</Form.Control.Feedback>
+                        ? <Form.Control.Feedback
+                          type="invalid"
+                          style={{display: 'block'}}
+                        >
+                          {formik.errors.password}
+                        </Form.Control.Feedback>
                         : null
                     }
                   </Form.Group>
@@ -112,23 +122,27 @@ const SignUpPage = () => {
                   <Form.Group controlId="confirmPassword" className={'form-floating mb-4'}>
                     <Form.Control
                       type="password"
-                      placeholder="Подтвердите пароль"
+                      placeholder={t('signupForm.confirmLabel')}
                       name="confirmPassword"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       isInvalid={registrationFailed}
                     />
-                    <Form.Label>Подтверждение пароля</Form.Label>
+                    <Form.Label>{t('signupForm.confirmLabel')}</Form.Label>
                     {
                       formik.touched.confirmPassword && formik.errors.confirmPassword
-                        ? <Form.Control.Feedback type="invalid"
-                                                 style={{display: 'block'}}>{formik.errors.confirmPassword}</Form.Control.Feedback>
+                        ? <Form.Control.Feedback
+                          type="invalid"
+                          style={{display: 'block'}}
+                        >
+                          {formik.errors.confirmPassword}
+                        </Form.Control.Feedback>
                         : null
                     }
                   </Form.Group>
                   <Button className={'w-100'} variant="outline-primary" type="submit">
-                    Зарегистрироваться
+                    {t('submitButton')}
                   </Button>
                 </Form>
               </Col>

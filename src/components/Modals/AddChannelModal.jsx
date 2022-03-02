@@ -5,12 +5,13 @@ import { Button, Form, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const AddChannelModal = (props) => {
   const { onHide } = props;
 
   const [fieldInvalid, setFieldInvalid] = useState(false);
-  const [validationError, setValidationError] = useState(null);
+  const [validationError, setValidationError] = useState('');
 
   const { createNewChannel } = useSocket();
   const inputRef = useRef();
@@ -18,17 +19,18 @@ const AddChannelModal = (props) => {
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const channelNames = channels.map((el) => el.name);
 
+  const { t } = useTranslation('translation', { keyPrefix: 'modals' });
+
   const validate = Yup.object({
     body: Yup.string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channelNames, 'Должно быть уникальным'),
+      .required(t('modalsValidate.required'))
+      .min(3, t('modalsValidate.minMaxLength'))
+      .max(20, t('modalsValidate.minMaxLength'))
+      .notOneOf(channelNames, t('modalsValidate.uniqueChannelName')),
   });
 
   const formik = useFormik({
     initialValues: { body: '' },
-    // validationSchema: validate,
     onSubmit: async (values) => {
       try {
         await validate.validate(values);
@@ -54,7 +56,7 @@ const AddChannelModal = (props) => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('addChannelModal.modalTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -68,7 +70,7 @@ const AddChannelModal = (props) => {
               value={formik.values.body}
               data-testid="input-body"
               name="body"
-              placeholder="Введите имя канала"
+              placeholder={t('addChannelModal.channelNameInput')}
               isInvalid={fieldInvalid}
               className={'mb-3'}
             />
@@ -79,8 +81,8 @@ const AddChannelModal = (props) => {
             }
           </FormGroup>
           <div className={'d-flex justify-content-end'}>
-            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>Закрыть</Button>
-            <Button type="submit" variant="primary">Отправить</Button>
+            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
+            <Button type="submit" variant="primary">{t('modalsButton.sendBtn')}</Button>
           </div>
         </form>
       </Modal.Body>

@@ -5,6 +5,7 @@ import { Button, Form, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 const RenameChannelModal = (props) => {
   const { onHide } = props;
@@ -19,12 +20,14 @@ const RenameChannelModal = (props) => {
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const channelNames = channels.map((el) => el.name);
 
+  const { t } = useTranslation('translation', { keyPrefix: 'modals' });
+
   const validate = Yup.object({
     body: Yup.string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(channelNames, 'Должно быть уникальным'),
+      .required(t('modalsValidate.required'))
+      .min(3, t('modalsValidate.minMaxLength'))
+      .max(20, t('modalsValidate.minMaxLength'))
+      .notOneOf(channelNames, t('modalsValidate.uniqueChannelName')),
   });
 
   const formik = useFormik({
@@ -51,12 +54,12 @@ const RenameChannelModal = (props) => {
   useEffect(() => {
     inputRef.current.focus();
     inputRef.current.select();
-  }, []);
+  }, [name]);
 
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('renameChannelModal.modalTitle')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -70,7 +73,7 @@ const RenameChannelModal = (props) => {
               value={formik.values.body}
               data-testid="input-body"
               name="body"
-              placeholder="Введите имя канала"
+              placeholder={t('renameChannelModal.channelNameInput')}
               isInvalid={fieldInvalid}
               className={'mb-3'}
             />
@@ -81,8 +84,8 @@ const RenameChannelModal = (props) => {
             }
           </FormGroup>
           <div className={'d-flex justify-content-end'}>
-            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>Закрыть</Button>
-            <Button type="submit" variant="primary">Переименовать</Button>
+            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
+            <Button type="submit" variant="primary">{t('modalsButton.sendBtn')}</Button>
           </div>
         </form>
       </Modal.Body>

@@ -7,23 +7,23 @@ import { useAuth } from '../hooks/useAuth.jsx';
 import { useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import image from '../../assets/images/login.png';
-
-const validate = Yup.object({
-  username: Yup.string()
-    .required('No username provided.')
-    .max(15, 'Must be 15 characters or less')
-    .required('Required'),
-  password: Yup.string()
-    .required('No password provided.')
-    .min(4, 'Password is too short - should be 4 chars minimum.')
-    .required('Required'),
-});
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
   const { logIn } = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
   const [authFailed, setAuthFailed] = useState(false);
+  const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
+
+  const validate = Yup.object({
+    username: Yup.string()
+      .required(t('loginFormValidation.noUsername'))
+      .max(15, 'loginFormValidation.usernameMaxLength'),
+    password: Yup.string()
+      .required(t('loginFormValidation.noPassword'))
+      .min(4, t('loginFormValidation.passwordMaxLength')),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -60,18 +60,18 @@ const LoginPage = () => {
                 </Col>
                 <Col>
                   <Card.Title className={'text-center mb-5'}>
-                    <h2>Войти</h2>
+                    <h2>{t('loginTitle')}</h2>
                   </Card.Title>
                   <Form className={'form-floating'} onSubmit={formik.handleSubmit}>
                     {
                       authFailed
-                        ? <Alert variant={'danger'}>the username or password is incorrect</Alert>
+                        ? <Alert variant={'danger'}>{t('incorrectDataAlert')}</Alert>
                         : null
                     }
                     <Form.Group controlId="username" className={'form-floating mb-3'}>
                       <Form.Control
                         type="text"
-                        placeholder="Ваш ник"
+                        placeholder={t('loginForm.usernameLabel')}
                         name="username"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -79,7 +79,7 @@ const LoginPage = () => {
                         ref={inputRef}
                         isInvalid={authFailed}
                       />
-                      <Form.Label>Ваш ник</Form.Label>
+                      <Form.Label>{t('loginForm.usernameLabel')}</Form.Label>
                       {
                         formik.touched.username && formik.errors.username
                           ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.username}</Form.Control.Feedback>
@@ -90,14 +90,14 @@ const LoginPage = () => {
                     <Form.Group controlId="password" className={'form-floating mb-4'}>
                       <Form.Control
                         type="password"
-                        placeholder="Пароль"
+                        placeholder={t('loginForm.passwordLabel')}
                         name="password"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.password}
                         isInvalid={authFailed}
                       />
-                      <Form.Label>Пароль</Form.Label>
+                      <Form.Label>{t('loginForm.passwordLabel')}</Form.Label>
                       {
                         formik.touched.password && formik.errors.password
                           ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.password}</Form.Control.Feedback>
@@ -105,7 +105,7 @@ const LoginPage = () => {
                       }
                     </Form.Group>
                     <Button className={'w-100'} variant="outline-primary" type="submit">
-                      Войти
+                      {t('submitButton')}
                     </Button>
                   </Form>
                 </Col>
@@ -113,8 +113,8 @@ const LoginPage = () => {
             </Card.Body>
             <Card.Footer className={'p-4'}>
               <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <a href={'/signup'}>Регистрация</a>
+                <span>{t('noAccountQuestion')} </span>
+                <a href={'/signup'}>{t('registrationLink')}</a>
               </div>
             </Card.Footer>
           </Card>

@@ -14,7 +14,6 @@ import ChatMessages from './ChatMess';
 import { useSocket } from '../../hooks/useSocket.jsx';
 import getModal from '../Modals/modals.js'
 
-
 const getUserAuth = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
   if (userId && userId.token) {
@@ -29,19 +28,19 @@ const renderModal = (modalInfo, hideModal) => {
   }
 
   const Component = getModal(modalInfo.type);
-  return <Component modalInfo={modalInfo} onHide={hideModal} />;
+  return <Component modalInfo={modalInfo} onHide={hideModal}/>;
 }
 
 const ChatPage = () => {
   const {loggedIn} = useAuth();
   const dispatch = useDispatch();
-  const { sendMessage, createNewChannel } = useSocket();
+  const {sendMessage, createNewChannel} = useSocket();
 
   const [username, setUsername] = useState(null);
 
-  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
-  const hideModal = () => setModalInfo({ type: null, item: null });
-  const showModal = (type, item = null) => setModalInfo({ type, item });
+  const [modalInfo, setModalInfo] = useState({type: null, item: null});
+  const hideModal = () => setModalInfo({type: null, item: null});
+  const showModal = (type, item = null) => setModalInfo({type, item});
 
   useEffect(async () => {
     if (loggedIn) {

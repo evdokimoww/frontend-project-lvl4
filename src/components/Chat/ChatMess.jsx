@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const { t } = useTranslation('translation', { keyPrefix: 'chatPage.chatMessages' });
+
 
   const handleChangeText = (e) => {
     const str = e.target.value;
@@ -21,7 +24,12 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
   return <Col className={'h-100 p-0'}>
     <div className={'d-flex flex-column h-100'}>
       <div className={'p-3 mb-4 shadow-sm'}>
-        <strong># header</strong>
+        <p className={'m-0'}>
+          <strong># header</strong>
+        </p>
+        <span className={'text-muted'}>
+          {t('messageCounter.count', { count: messages.length})}
+        </span>
       </div>
 
       <div className={'overflow-auto px-5'}>
@@ -35,9 +43,10 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
               value={text}
               onChange={handleChangeText}
               type="text"
-              placeholder="Ваше сообщение..."
+              placeholder={t('messageInputPlaceholder')}
+              className={'me-2'}
             />
-            <Button variant="success" type="submit" disabled={btnDisabled}>Отправить</Button>
+            <Button variant="success" type="submit" disabled={btnDisabled}>{t('sendMessageButton')}</Button>
           </Form.Group>
         </Form>
       </div>

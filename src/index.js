@@ -5,21 +5,28 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
-import App from './components/App.js';
-import store from './slices/index.js'
+import init from './init.js';
 import { Provider } from 'react-redux';
-import { io } from 'socket.io-client';
+import store from './slices/index.js';
+import App from './components/App.js';
+import { I18nextProvider } from 'react-i18next';
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
-const socket = io();
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App socket={socket} />
-  </Provider>,
-document.getElementById('chat')
-)
-;
+const runApp = async () => {
+  const { socket, i18nextInstance } = await init();
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <I18nextProvider i18n={i18nextInstance}>
+        <App socket={socket}/>
+      </I18nextProvider>
+    </Provider>,
+    document.getElementById('chat')
+  )
+};
+
+runApp();
