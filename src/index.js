@@ -1,15 +1,10 @@
 // @ts-check
-import React from 'react';
 import ReactDOM from 'react-dom'
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import '../assets/application.scss';
 import init from './init.js';
-import { Provider } from 'react-redux';
-import store from './slices/index.js';
-import App from './components/App.js';
-import { I18nextProvider } from 'react-i18next';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -19,18 +14,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const runApp = async () => {
-  const { socket, i18nextInstance } = await init();
+  const app = await init();
 
   ReactDOM.render(
-    <Provider store={store}>
-      <I18nextProvider i18n={i18nextInstance}>
-        <App socket={socket}/>
-      </I18nextProvider>
-    </Provider>,
+    app,
     document.getElementById('chat')
   )
+
+  return app;
 };
 
 runApp();
-
 export default runApp;
