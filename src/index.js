@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const runApp = async () => {
-  const container = document.querySelector('#chat');
+  const container = document.querySelector('#root');
   const socket = io();
   const app = await init(socket);
 
