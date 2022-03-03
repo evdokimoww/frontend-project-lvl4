@@ -8,9 +8,14 @@ import SocketContextProvider from '../contexts/SocketContext.jsx';
 import Header from './Header.jsx';
 import SignUpPage from './SignUpPage.jsx';
 import ToastifyProvider from '../contexts/ToastifyProvider.jsx';
+import useScript from '../hooks/useScript.jsx';
+import initRollbar from '../../assets/initRollbar.js';
 
 
 export default function App({socket}) {
+
+  useScript(initRollbar)
+
   return (
     <div className={'d-flex flex-column h-100 bg-light'}>
       <ToastifyProvider>
