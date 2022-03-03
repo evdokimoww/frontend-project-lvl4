@@ -27,7 +27,9 @@ export const DropdownChatButton = ({channel, currentChat, updateChannel, showMod
     <Dropdown as={ButtonGroup} className={'d-flex'}>
       <Button onClick={handleClick} variant={variant} className={'w-100 rounded-0 text-start noFocus'}># {channel.name}</Button>
 
-      <Dropdown.Toggle split variant={variant} className={'noFocus'}/>
+      <Dropdown.Toggle split variant={variant} className={'noFocus'}>
+        <span className="visually-hidden">{t('changeChannelButton')}</span>
+      </Dropdown.Toggle>
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => showModal('removeChannel', {id: channel.id})}>{t('removeButton')}</Dropdown.Item>

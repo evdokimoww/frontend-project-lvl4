@@ -77,7 +77,7 @@ const AddChannelModal = (props) => {
               isInvalid={fieldInvalid}
               className={'mb-3'}
             />
-            <Form.Label className={'visually-hidden'}>{t('addChannelModal.inputLabel')}</Form.Label>
+            <Form.Label className={'visually-hidden'} htmlFor={'body'}>{t('addChannelModal.inputLabel')}</Form.Label>
             {
               fieldInvalid
                 ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{validationError}</Form.Control.Feedback>
