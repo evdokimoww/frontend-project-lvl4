@@ -55,10 +55,6 @@ const SocketContextProvider = ({children, socket}) => {
     socket.on('renameChannel', (channel) => {
       dispatch(channelActions.renameChannel(channel));
     })
-
-    socket.on("connect_error", (err) => {
-      console.log(`connect_error due to ${err.message}`);
-    });
   }, [socket])
 
   return <SocketContext.Provider value={{sendMessage, createNewChannel, removeChannel, renameChannel}}>

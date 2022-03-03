@@ -27,4 +27,3 @@ const runApp = async () => {
 };
 
 runApp();
-export default runApp;
