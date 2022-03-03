@@ -88,7 +88,7 @@ export default {
           },
           toastMessages: {
             successCreateChannel: 'Канал создан',
-            successRemoveChannel: 'Канал удален',
+            successRemoveChannel: 'Канал удалён',
             successRenameChannel: 'Канал переименован'
           }
         },
