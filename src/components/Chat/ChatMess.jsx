@@ -3,14 +3,7 @@ import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
-const filterInit = () => {
-  filter.add(filter.getDictionary('en'));
-  filter.add(filter.getDictionary('ru'));
-}
-
 const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
-  filterInit();
-
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
   const {t} = useTranslation('translation', {keyPrefix: 'chatPage.chatMessages'});
