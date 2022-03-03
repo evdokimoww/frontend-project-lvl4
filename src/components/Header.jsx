@@ -2,6 +2,7 @@ import { Button, Container, Navbar } from 'react-bootstrap';
 import React from 'react';
 import { useAuth } from '../hooks/useAuth.jsx';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const {loggedIn, logOut} = useAuth();
@@ -10,7 +11,7 @@ const Header = () => {
 
   return <Navbar bg="light" expand="lg" className={'shadow-sm bg-white'}>
     <Container>
-      <Navbar.Brand href="/">{t('logoText')}</Navbar.Brand>
+      <Link to='/'>{t('logoText')}</Link>
       {
         loggedIn
           ? <Button
