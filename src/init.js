@@ -14,7 +14,5 @@ export default async () => {
 
   const socket = io();
 
-
-
   return { socket, i18nextInstance }
 }
