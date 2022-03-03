@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSocket } from '../../hooks/useSocket.jsx';
 import { useFormik } from 'formik';
-import { Button, Form, FormControl, FormGroup, Modal } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import * as Yup from 'yup';
@@ -68,8 +68,8 @@ const RenameChannelModal = (props) => {
 
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          <FormGroup>
-            <FormControl
+          <Form.Group>
+            <Form.Control
               required
               ref={inputRef}
               onChange={formik.handleChange}
@@ -87,7 +87,7 @@ const RenameChannelModal = (props) => {
                 ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{validationError}</Form.Control.Feedback>
                 : null
             }
-          </FormGroup>
+          </Form.Group>
           <div className={'d-flex justify-content-end'}>
             <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
             <Button type="submit" variant="primary">{t('modalsButton.sendBtn')}</Button>
