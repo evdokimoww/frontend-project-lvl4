@@ -87,9 +87,9 @@ export default {
             modalWarning: 'Уверены?',
           },
           toastMessages: {
-            successCreateChannel: 'Канал успешно создан',
-            successRemoveChannel: 'Канал успешно удален',
-            successRenameChannel: 'Канал успешно переименован'
+            successCreateChannel: 'Канал создан',
+            successRemoveChannel: 'Канал удален',
+            successRenameChannel: 'Канал переименован'
           }
         },
       }
