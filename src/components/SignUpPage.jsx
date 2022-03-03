@@ -22,7 +22,8 @@ const SignUpPage = () => {
   const validate = Yup.object({
     username: Yup.string()
       .required(t('signupFormValidation.noUsername'))
-      .max(15, t('signupFormValidation.usernameMaxLength')),
+      .min(3, t('signupFormValidation.passwordMaxLength'))
+      .max(20, t('signupFormValidation.usernameMinMaxLength')),
     password: Yup.string()
       .required(t('signupFormValidation.noPassword'))
       .min(6, t('signupFormValidation.passwordMaxLength')),

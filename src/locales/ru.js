@@ -14,7 +14,7 @@ export default {
           registrationLink: 'Регистрация',
           loginFormValidation: {
             noUsername: 'Имя пользователя не указано',
-            usernameMaxLength: 'Длина не более 15 символов',
+            usernameMinMaxLength: 'От 3 до 20 символов',
             noPassword: 'Пароль не указан',
             passwordMaxLength: 'Длина не менее 4 символов'
           },
@@ -30,7 +30,7 @@ export default {
           submitButton: 'Зарегистрироваться',
           signupFormValidation: {
             noUsername: 'Имя пользователя не указано',
-            usernameMaxLength: 'Не более 15 символов',
+            usernameMinMaxLength: 'От 3 до 20 символов',
             noPassword: 'Пароль не указан',
             passwordMaxLength: 'Не менее 6 символов',
             passwordsMustMatch: 'Пароли должны совпадать',
