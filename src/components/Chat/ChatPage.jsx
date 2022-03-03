@@ -52,7 +52,11 @@ const ChatPage = () => {
       dispatch(channelsActions.addChannels(channels));
       dispatch(updateCurrentChannelId(currentChannelId));
       dispatch(messagesActions.addMessages(messages));
-      setUsername(JSON.parse(localStorage.getItem('userId')).username);
+
+      const userId = JSON.parse(localStorage.getItem('userId'));
+      if (userId) {
+        setUsername(userId.username);
+      }
     }
 
   }, [])
