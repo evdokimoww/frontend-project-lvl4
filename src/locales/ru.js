@@ -55,6 +55,7 @@ export default {
               count_many: '{{count}} сообщений',
             },
             messageInputPlaceholder: 'Ваше сообщение ...',
+            messageAriaLabel: 'Новое сообщение',
             sendMessageButton: 'Отправить'
           }
         },

@@ -61,6 +61,7 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
               type="text"
               placeholder={t('messageInputPlaceholder')}
               className={'me-2'}
+              aria-label={t('messageAriaLabel')}
             />
             <Button variant="success" type="submit" disabled={btnDisabled}>{t('sendMessageButton')}</Button>
           </Form.Group>

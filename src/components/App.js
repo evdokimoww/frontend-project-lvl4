@@ -21,8 +21,8 @@ export default function App({socket}) {
       <ToastifyProvider>
         <AuthProvider>
           <SocketContextProvider socket={socket}>
-            <Header/>
             <BrowserRouter>
+              <Header/>
               <Routes>
                 <Route exact path="/" element={<ChatPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
