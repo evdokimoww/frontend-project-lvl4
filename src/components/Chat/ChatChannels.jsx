@@ -17,6 +17,7 @@ export const ChatChannels = ({channels, currentChat, showModal}) => {
     <div className={'d-flex justify-content-between ps-4 pe-2 mb-2'}>
       <span>{t('title')}</span>
       <Button
+        role='button'
         variant={'outline-primary'}
         className={'btn-sm px-2 py-0 noFocus'}
         onClick={() => showModal('addChannel')}
