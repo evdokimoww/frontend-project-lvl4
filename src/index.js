@@ -16,12 +16,12 @@ if (process.env.NODE_ENV !== 'production') {
 
 const runApp = async () => {
   const container = document.getElementById('chat');
+
   const socket = io();
   const app = await init(socket);
 
   ReactDOM.render(
-    app,
-    container
+    app, container,
   )
 
   return app;
