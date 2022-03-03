@@ -47,7 +47,8 @@ export default {
             title: 'Каналы',
             renameButton: 'Переименовать',
             removeButton: 'Удалить',
-            changeChannelButton: 'Управление каналом'
+            changeChannelButton: 'Управление каналом',
+            plusButton: '+'
           },
           chatMessages: {
             messageCounter: {

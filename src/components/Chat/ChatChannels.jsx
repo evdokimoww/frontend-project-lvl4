@@ -20,8 +20,9 @@ export const ChatChannels = ({channels, currentChat, showModal}) => {
         variant={'outline-primary'}
         className={'btn-sm px-2 py-0 noFocus'}
         onClick={() => showModal('addChannel')}
+        name='+'
       >
-        +
+        {t('plusButton')}
       </Button>
     </div>
     <ListGroup className="flex-column nav-pills nav-fill">
