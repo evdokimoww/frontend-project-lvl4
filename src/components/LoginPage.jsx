@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useAuth } from '../hooks/useAuth.jsx';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import routes from '../routes.js';
 import image from '../../assets/images/login.png';
 import { useTranslation } from 'react-i18next';
@@ -120,7 +120,7 @@ const LoginPage = () => {
             <Card.Footer className={'p-4'}>
               <div className="text-center">
                 <span>{t('noAccountQuestion')} </span>
-                <a href={'/signup'}>{t('registrationLink')}</a>
+                <Link to='/signup'>{t('registrationLink')}</Link>
               </div>
             </Card.Footer>
           </Card>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const NoMatchPage = () => {
   return (
@@ -7,7 +8,9 @@ const NoMatchPage = () => {
       <Col>
         <div className={'text-center align-content-center'}>
           <h3>Нет страницы лучше в мире чем 404...</h3>
-          <p className={'text-muted'}><a href="/">на главную</a></p>
+          <p className={'text-muted'}>
+            <Link to='/'>на главную</Link>
+          </p>
         </div>
       </Col>
     </Row>
