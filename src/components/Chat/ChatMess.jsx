@@ -3,9 +3,12 @@ import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 
-const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
+const ChatMessages = ({messages, sendMessage, username, currentChannelId, currentChannel}) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
+
+  const [channelName, setChannelName] = useState('');
+
   const {t} = useTranslation('translation', {keyPrefix: 'chatPage.chatMessages'});
   const lastMessageRef = useRef();
 
@@ -22,9 +25,15 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
     setBtnDisabled(true);
   }
 
+  useEffect(() => {
+    if (currentChannel) {
+      setChannelName(currentChannel.name)
+    }
+  }, [currentChannelId])
+
   useEffect(async () => {
     if (messages.length > 0) {
-      await lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+      await lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
     }
   }, [messages])
 
@@ -32,7 +41,7 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId}) => {
     <div className={'d-flex flex-column h-100'}>
       <div className={'p-3 mb-4 shadow-sm'}>
         <p className={'m-0'}>
-          <strong># header</strong>
+          <strong># {channelName}</strong>
         </p>
         <span className={'text-muted'}>
           {t('messageCounter.count', {count: messages.length})}

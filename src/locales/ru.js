@@ -73,10 +73,12 @@ export default {
           addChannelModal: {
             modalTitle: 'Добавить канал',
             channelNameInput: 'Введите имя канала',
+            inputLabel: 'Имя канала'
           },
           renameChannelModal: {
             modalTitle: 'Переименовать канал',
             channelNameInput: 'Введите имя канала',
+            inputLabel: 'Имя канала'
           },
           removeChannelModal: {
             modalTitle: 'Удалить канал',
