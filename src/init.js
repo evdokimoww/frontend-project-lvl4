@@ -5,7 +5,6 @@ import { initReactI18next } from 'react-i18next';
 
 export default async () => {
   const i18nextInstance = i18next.createInstance();
-  console.log(ru);
   await i18nextInstance
     .use(initReactI18next)
     .init({

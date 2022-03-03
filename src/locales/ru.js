@@ -8,7 +8,7 @@ export default {
         },
         loginPage: {
           loginTitle: 'Войти',
-          incorrectDataAlert: 'Неправильный логин или пароль',
+          incorrectDataAlert: 'Неверные имя пользователя или пароль',
           submitButton: 'Войти',
           noAccountQuestion: 'Нет аккаунта?',
           registrationLink: 'Регистрация',
@@ -19,7 +19,7 @@ export default {
             passwordMaxLength: 'Длина не менее 4 символов'
           },
           loginForm: {
-            usernameLabel: 'Имя пользователя',
+            usernameLabel: 'Ваш ник',
             passwordLabel: 'Пароль',
           },
           networkError: 'Ошибка подключения'
@@ -30,15 +30,15 @@ export default {
           submitButton: 'Зарегистрироваться',
           signupFormValidation: {
             noUsername: 'Имя пользователя не указано',
-            usernameMaxLength: 'Длина не более 15 символов',
+            usernameMaxLength: 'Не более 15 символов',
             noPassword: 'Пароль не указан',
-            passwordMaxLength: 'Длина не менее 6 символов',
+            passwordMaxLength: 'Не менее 6 символов',
             passwordsMustMatch: 'Пароли должны совпадать',
           },
           signupForm: {
             usernameLabel: 'Имя пользователя',
             passwordLabel: 'Пароль',
-            confirmLabel: 'Подтверждение пароля',
+            confirmLabel: 'Подтвердите пароль',
           },
           networkError: 'Ошибка подключения'
         },
