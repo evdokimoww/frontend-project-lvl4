@@ -11,7 +11,6 @@ const NoMatchPage = () => {
         </div>
       </Col>
     </Row>
-
   )
 };
 
