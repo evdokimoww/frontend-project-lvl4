@@ -43,23 +43,28 @@ const ChatPage = () => {
   const hideModal = () => setModalInfo({ type: null, item: null });
   const showModal = (type, item = null) => setModalInfo({ type, item });
 
-  useEffect(async () => {
-    if (loggedIn) {
-      const res = await axios.get(routes.getChannelAndMessages(), {
-        headers: getUserAuth(),
-      });
-      const { channels, currentChannelId, messages } = res.data;
+  useEffect(() => {
+    const fetchData = async () => {
+      if (loggedIn) {
+        const res = await axios.get(routes.getChannelAndMessages(), {
+          headers: getUserAuth(),
+        });
+        const { channels, currentChannelId, messages } = res.data;
 
-      dispatch(channelsActions.addChannels(channels));
-      dispatch(updateCurrentChannelId(currentChannelId));
-      dispatch(messagesActions.addMessages(messages));
+        dispatch(channelsActions.addChannels(channels));
+        dispatch(updateCurrentChannelId(currentChannelId));
+        dispatch(messagesActions.addMessages(messages));
 
-      const userId = JSON.parse(localStorage.getItem('userId'));
-      if (userId) {
-        setUsername(userId.username);
+        const userId = JSON.parse(localStorage.getItem('userId'));
+        if (userId) {
+          setUsername(userId.username);
+        }
       }
-    }
+    };
+
+    fetchData();
   }, []);
+
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
   const currentChannelId = useSelector((state) => state.currentChannelId.id);

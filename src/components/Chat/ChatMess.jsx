@@ -31,12 +31,16 @@ const ChatMessages = ({
     if (currentChannel) {
       setChannelName(currentChannel.name);
     }
-  }, [currentChannelId]);
+  }, [currentChannel]);
 
-  useEffect(async () => {
-    if (messages.length > 0) {
-      await lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+  useEffect(() => {
+    const scrollToBottom = async () => {
+      if (messages.length > 0) {
+        await lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
+    scrollToBottom();
   }, [messages]);
 
   return (

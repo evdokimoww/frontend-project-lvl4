@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm bg-white">
       <Container>
-        <Link to="/">{t('logoText')}</Link>
+        <Link className="navbar-brand" to="/">{t('logoText')}</Link>
         {
         loggedIn
           ? (

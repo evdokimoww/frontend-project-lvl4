@@ -2,17 +2,19 @@ import React, { createContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { actions as messageActions } from '../slices/messagesSlice.js';
 import { actions as channelActions } from '../slices/channelsSlice.js';
+import useAuth from '../hooks/useAuth.jsx';
 
 export const SocketContext = createContext(null);
 
 const SocketContextProvider = ({ children, socket }) => {
   const dispatch = useDispatch();
+  const { loggedIn } = useAuth();
 
   useEffect(() => {
     socket.on('connect', () => {
       console.log(socket);
     });
-  }, []);
+  }, [socket, dispatch]);
 
   const sendMessage = (messageText, currentChat, username) => {
     socket.emit('newMessage', { messageText, channelId: currentChat, author: username }, (response) => {
@@ -54,7 +56,7 @@ const SocketContextProvider = ({ children, socket }) => {
     socket.on('renameChannel', (channel) => {
       dispatch(channelActions.renameChannel(channel));
     });
-  }, [socket]);
+  }, [socket, dispatch, loggedIn]);
 
   return (
     <SocketContext.Provider value={{

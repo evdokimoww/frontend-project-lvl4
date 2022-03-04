@@ -11,14 +11,14 @@ const currentChannelIdSlice = createSlice({
   name: 'currentChannelId',
   initialState,
   reducers: {
-    updateCurrentChannelId: (state, action) => {
+    updateCurrentChannelId(state, action) {
       state.id = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(channelActions.addChannel, (state, action) => {
-        state.id = action.payload.id;
+      .addCase(channelActions.addChannel, (state, { payload }) => {
+        state.id = payload.id;
       })
       .addCase(channelActions.removeChannel, (state) => {
         state.id = 1;
