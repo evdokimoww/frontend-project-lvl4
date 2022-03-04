@@ -6,6 +6,7 @@ import App from './components/App.js';
 import { Provider } from 'react-redux';
 import React from 'react';
 import filter from 'leo-profanity';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 
 export default async (socket) => {
   const i18nextInstance = i18next.createInstance();
@@ -19,11 +20,24 @@ export default async (socket) => {
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
 
+  const rollbarConfig = {
+    accessToken: 'ce6cb18737c348a5a2788b472e04021f',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    payload: {
+      environment: 'production',
+    },
+  }
+
   return (
-    <Provider store={store}>
-      <I18nextProvider i18n={i18nextInstance}>
-        <App socket={socket}/>
-      </I18nextProvider>
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <I18nextProvider i18n={i18nextInstance}>
+            <App socket={socket}/>
+          </I18nextProvider>
+        </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   )
 }

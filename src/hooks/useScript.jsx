@@ -4,7 +4,7 @@ const useScript = url => {
   useEffect(() => {
     const script = document.createElement('script');
 
-    script.innerHTML = url();
+    script.src = url;
     script.async = true;
 
     document.head.appendChild(script);

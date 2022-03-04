@@ -32,9 +32,9 @@ const ChatMessages = ({messages, sendMessage, username, currentChannelId, curren
   }, [currentChannelId])
 
   useEffect(async () => {
-    if (messages.length > 0) {
+
       await lastMessageRef.current.scrollIntoView({behavior: 'smooth'});
-    }
+
   }, [messages])
 
   return <Col className={'h-100 p-0'}>
