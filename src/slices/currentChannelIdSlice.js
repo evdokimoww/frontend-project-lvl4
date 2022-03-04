@@ -1,9 +1,9 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { actions as channelActions } from './channelsSlice.js'
+import { actions as channelActions } from './channelsSlice.js';
 
 const initialState = {
   id: null,
-}
+};
 
 const currentChannelIdAdapter = createEntityAdapter();
 
@@ -12,19 +12,19 @@ const currentChannelIdSlice = createSlice({
   initialState,
   reducers: {
     updateCurrentChannelId: (state, action) => {
-      state.id = action.payload
+      state.id = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(channelActions.addChannel, (state, action) => {
-      state.id = action.payload.id;
-    })
+        state.id = action.payload.id;
+      })
       .addCase(channelActions.removeChannel, (state) => {
         state.id = 1;
       });
   },
-})
+});
 
 export const selector = currentChannelIdAdapter.getSelectors((state) => state.currentChannelId);
 export const { updateCurrentChannelId } = currentChannelIdSlice.actions;

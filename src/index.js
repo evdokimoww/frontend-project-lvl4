@@ -1,12 +1,11 @@
 // @ts-check
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 import '../assets/application.scss';
-import init from './init.js';
+import init from './init.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { io } from 'socket.io-client';
-
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
@@ -19,8 +18,8 @@ const runApp = async () => {
 
   ReactDOM.render(
     app,
-    document.getElementById('chat')
-  )
+    document.getElementById('chat'),
+  );
 
   return app;
 };

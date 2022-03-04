@@ -16,13 +16,13 @@ export default {
             noUsername: 'Имя пользователя не указано',
             usernameMinMaxLength: 'От 3 до 20 символов',
             noPassword: 'Пароль не указан',
-            passwordMaxLength: 'Длина не менее 4 символов'
+            passwordMaxLength: 'Длина не менее 4 символов',
           },
           loginForm: {
             usernameLabel: 'Ваш ник',
             passwordLabel: 'Пароль',
           },
-          networkError: 'Ошибка подключения'
+          networkError: 'Ошибка подключения',
         },
         signupPage: {
           signupTitle: 'Регистрация',
@@ -40,7 +40,7 @@ export default {
             passwordLabel: 'Пароль',
             confirmLabel: 'Подтвердите пароль',
           },
-          networkError: 'Ошибка подключения'
+          networkError: 'Ошибка подключения',
         },
         chatPage: {
           chatChannels: {
@@ -48,7 +48,7 @@ export default {
             renameButton: 'Переименовать',
             removeButton: 'Удалить',
             changeChannelButton: 'Управление каналом',
-            plusButton: '+'
+            plusButton: '+',
           },
           chatMessages: {
             messageCounter: {
@@ -58,8 +58,8 @@ export default {
             },
             messageInputPlaceholder: 'Ваше сообщение ...',
             messageAriaLabel: 'Новое сообщение',
-            sendMessageButton: 'Отправить'
-          }
+            sendMessageButton: 'Отправить',
+          },
         },
         modals: {
           modalsValidate: {
@@ -75,12 +75,12 @@ export default {
           addChannelModal: {
             modalTitle: 'Добавить канал',
             channelNameInput: 'Введите имя канала',
-            inputLabel: 'Имя канала'
+            inputLabel: 'Имя канала',
           },
           renameChannelModal: {
             modalTitle: 'Переименовать канал',
             channelNameInput: 'Введите имя канала',
-            inputLabel: 'Имя канала'
+            inputLabel: 'Имя канала',
           },
           removeChannelModal: {
             modalTitle: 'Удалить канал',
@@ -89,9 +89,9 @@ export default {
           toastMessages: {
             successCreateChannel: 'Канал создан',
             successRemoveChannel: 'Канал удалён',
-            successRenameChannel: 'Канал переименован'
-          }
+            successRenameChannel: 'Канал переименован',
+          },
         },
-      }
-    }
+      },
+    },
 };

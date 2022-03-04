@@ -1,23 +1,24 @@
 import React, { useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
-import { Alert, Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import * as Yup from 'yup';
+import {
+  Alert, Button, Card, Col, Container, Form, Row,
+} from 'react-bootstrap';
 import axios from 'axios';
-import { useAuth } from '../hooks/useAuth.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 import image from '../../assets/images/login.png';
-import { useTranslation } from 'react-i18next';
 import { useToastify } from '../hooks/useToastify.jsx';
 
-const LoginPage = () => {
+function LoginPage() {
   const { logIn } = useAuth();
   const navigate = useNavigate();
   const inputRef = useRef();
   const [authFailed, setAuthFailed] = useState(false);
   const { t } = useTranslation('translation', { keyPrefix: 'loginPage' });
   const { errorToast } = useToastify();
-
 
   const validate = Yup.object({
     username: Yup.string()
@@ -44,7 +45,7 @@ const LoginPage = () => {
         navigate('/');
       } catch (err) {
         if (err.request) {
-          errorToast(t('networkError'))
+          errorToast(t('networkError'));
         }
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
@@ -56,26 +57,27 @@ const LoginPage = () => {
     },
   });
 
-  return <Container className={'h-100'} fluid>
-      <Row className={'row justify-content-center align-content-center h-100'}>
-        <Col xs md='8' xxl='6'>
-          <Card className={'shadow-sm'}>
+  return (
+    <Container className="h-100" fluid>
+      <Row className="row justify-content-center align-content-center h-100">
+        <Col xs md="8" xxl="6">
+          <Card className="shadow-sm">
             <Card.Body>
-              <Row className={'p-5'}>
-                <Col md={6} className={'d-flex align-items-center justify-content-center'}>
-                  <img src={image} width={'160px'} alt=""/>
+              <Row className="p-5">
+                <Col md={6} className="d-flex align-items-center justify-content-center">
+                  <img src={image} width="160px" alt="" />
                 </Col>
                 <Col>
-                  <Card.Title className={'text-center mb-5'}>
+                  <Card.Title className="text-center mb-5">
                     <h2>{t('loginTitle')}</h2>
                   </Card.Title>
-                  <Form className={'form-floating'} onSubmit={formik.handleSubmit}>
+                  <Form className="form-floating" onSubmit={formik.handleSubmit}>
                     {
                       authFailed
-                        ? <Alert variant={'danger'}>{t('incorrectDataAlert')}</Alert>
+                        ? <Alert variant="danger">{t('incorrectDataAlert')}</Alert>
                         : null
                     }
-                    <Form.Group controlId="username" className={'form-floating mb-3'}>
+                    <Form.Group controlId="username" className="form-floating mb-3">
                       <Form.Control
                         type="text"
                         placeholder={t('loginForm.usernameLabel')}
@@ -89,12 +91,12 @@ const LoginPage = () => {
                       <Form.Label>{t('loginForm.usernameLabel')}</Form.Label>
                       {
                         formik.touched.username && formik.errors.username
-                          ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.username}</Form.Control.Feedback>
+                          ? <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>{formik.errors.username}</Form.Control.Feedback>
                           : null
                       }
                     </Form.Group>
 
-                    <Form.Group controlId="password" className={'form-floating mb-4'}>
+                    <Form.Group controlId="password" className="form-floating mb-4">
                       <Form.Control
                         type="password"
                         placeholder={t('loginForm.passwordLabel')}
@@ -107,27 +109,31 @@ const LoginPage = () => {
                       <Form.Label>{t('loginForm.passwordLabel')}</Form.Label>
                       {
                         formik.touched.password && formik.errors.password
-                          ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{formik.errors.password}</Form.Control.Feedback>
+                          ? <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>{formik.errors.password}</Form.Control.Feedback>
                           : null
                       }
                     </Form.Group>
-                    <Button className={'w-100'} variant="outline-primary" type="submit">
+                    <Button className="w-100" variant="outline-primary" type="submit">
                       {t('submitButton')}
                     </Button>
                   </Form>
                 </Col>
               </Row>
             </Card.Body>
-            <Card.Footer className={'p-4'}>
+            <Card.Footer className="p-4">
               <div className="text-center">
-                <span>{t('noAccountQuestion')} </span>
-                <Link to='/signup'>{t('registrationLink')}</Link>
+                <span>
+                  {t('noAccountQuestion')}
+                  {' '}
+                </span>
+                <Link to="/signup">{t('registrationLink')}</Link>
               </div>
             </Card.Footer>
           </Card>
         </Col>
       </Row>
-  </Container>
-};
+    </Container>
+  );
+}
 
 export default LoginPage;

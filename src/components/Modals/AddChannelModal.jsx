@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSocket } from '../../hooks/useSocket.jsx';
 import { useFormik } from 'formik';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
+import { useSocket } from '../../hooks/useSocket.jsx';
 import { useToastify } from '../../hooks/useToastify.jsx';
 
 const AddChannelModal = (props) => {
@@ -43,14 +43,12 @@ const AddChannelModal = (props) => {
         createNewChannel(values.body);
         onHide();
         successToast(t('toastMessages.successCreateChannel'));
-      }
-      catch (err) {
+      } catch (err) {
         setValidationError(err.message);
         setFieldInvalid(true);
       }
-
     },
-     });
+  });
 
   useEffect(() => {
     inputRef.current.focus();
@@ -75,17 +73,17 @@ const AddChannelModal = (props) => {
               name="body"
               placeholder={t('addChannelModal.channelNameInput')}
               isInvalid={fieldInvalid}
-              className={'mb-3'}
+              className="mb-3"
             />
-            <Form.Label className={'visually-hidden'}>{t('addChannelModal.inputLabel')}</Form.Label>
+            <Form.Label className="visually-hidden">{t('addChannelModal.inputLabel')}</Form.Label>
             {
               fieldInvalid
-                ? <Form.Control.Feedback type="invalid" style={{display:'block'}}>{validationError}</Form.Control.Feedback>
+                ? <Form.Control.Feedback type="invalid" style={{ display: 'block' }}>{validationError}</Form.Control.Feedback>
                 : null
             }
           </Form.Group>
-          <div className={'d-flex justify-content-end'}>
-            <Button className={'me-2'} variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
+          <div className="d-flex justify-content-end">
+            <Button className="me-2" variant="secondary" onClick={() => onHide()}>{t('modalsButton.closeBtn')}</Button>
             <Button type="submit" variant="primary">{t('modalsButton.sendBtn')}</Button>
           </div>
         </form>

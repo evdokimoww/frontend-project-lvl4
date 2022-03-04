@@ -8,5 +8,5 @@ export default configureStore({
     channels: channelsSlice,
     currentChannelId: currentChannelIdSlice,
     messages: messagesSlice,
-  }
-})
+  },
+});

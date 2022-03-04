@@ -22,7 +22,7 @@ const messagesSlice = createSlice({
         messagesAdapter.setAll(state, restEntities);
       });
   },
-})
+});
 
 export const selectors = messagesAdapter.getSelectors((state) => state.messages);
 export const { actions } = messagesSlice;

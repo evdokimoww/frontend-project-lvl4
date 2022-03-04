@@ -6,6 +6,6 @@ const modals = {
   addChannel: AddChannelModal,
   removeChannel: RemoveChannelModal,
   renameChannel: RenameChannelModal,
-}
+};
 
 export default (modalName) => modals[modalName];

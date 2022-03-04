@@ -8,26 +8,20 @@ import SocketContextProvider from '../contexts/SocketContext.jsx';
 import Header from './Header.jsx';
 import SignUpPage from './SignUpPage.jsx';
 import ToastifyProvider from '../contexts/ToastifyProvider.jsx';
-// import useScript from '../hooks/useScript.jsx';
-// import initRollbar from '../../assets/initRollbar.js';
 
-
-export default function App({socket}) {
-
-  // useScript(initRollbar)
-
+export default function App({ socket }) {
   return (
-    <div className={'d-flex flex-column h-100 bg-light'}>
+    <div className="d-flex flex-column h-100 bg-light">
       <ToastifyProvider>
         <AuthProvider>
           <SocketContextProvider socket={socket}>
             <BrowserRouter>
-              <Header/>
+              <Header />
               <Routes>
-                <Route exact path="/" element={<ChatPage/>}/>
-                <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/signup" element={<SignUpPage/>}/>
-                <Route path="*" element={<NoMatchPage/>}/>
+                <Route exact path="/" element={<ChatPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="*" element={<NoMatchPage />} />
               </Routes>
             </BrowserRouter>
           </SocketContextProvider>
