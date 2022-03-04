@@ -2,7 +2,7 @@ import { Button, Container, Navbar } from 'react-bootstrap';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 
 const Header = () => {
   const { loggedIn, logOut } = useAuth();

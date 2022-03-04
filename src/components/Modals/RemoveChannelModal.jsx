@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useSocket } from '../../hooks/useSocket.jsx';
-import { useToastify } from '../../hooks/useToastify.jsx';
+import useSocket from '../../hooks/useSocket.jsx';
+import useToastify from '../../hooks/useToastify.jsx';
 
 const RemoveChannelModal = (props) => {
-  const { onHide } = props;
-  const { id } = props.modalInfo.item;
+  const { onHide, modalInfo } = props;
+  const { id } = modalInfo.item;
   const { removeChannel } = useSocket();
   const { t } = useTranslation('translation', { keyPrefix: 'modals' });
   const { successToast } = useToastify();

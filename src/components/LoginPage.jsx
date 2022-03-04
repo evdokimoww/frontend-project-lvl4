@@ -7,10 +7,10 @@ import {
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../hooks/useAuth.jsx';
+import useAuth from '../hooks/useAuth.jsx';
 import routes from '../routes.js';
 import image from '../../assets/images/login.png';
-import { useToastify } from '../hooks/useToastify.jsx';
+import useToastify from '../hooks/useToastify.jsx';
 
 function LoginPage() {
   const { logIn } = useAuth();

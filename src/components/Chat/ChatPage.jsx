@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.js';
-import { useAuth } from '../../hooks/useAuth.jsx';
+import useAuth from '../../hooks/useAuth.jsx';
 
 import { actions as channelsActions, selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import { updateCurrentChannelId } from '../../slices/currentChannelIdSlice.js';
@@ -12,7 +12,7 @@ import { actions as messagesActions, selectors as messagesSelectors } from '../.
 
 import ChatChannels from './ChatChannels.jsx';
 import ChatMessages from './ChatMess.jsx';
-import { useSocket } from '../../hooks/useSocket.jsx';
+import useSocket from '../../hooks/useSocket.jsx';
 import getModal from '../Modals/modals.js';
 
 const getUserAuth = () => {
@@ -60,12 +60,13 @@ const ChatPage = () => {
       }
     }
   }, []);
-
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
   const currentChannelId = useSelector((state) => state.currentChannelId.id);
   const currentMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
-  const currentChannel = useSelector((state) => channelsSelectors.selectById(state, currentChannelId));
+  const currentChannel = useSelector(
+    (state) => channelsSelectors.selectById(state, currentChannelId),
+  );
 
   if (!loggedIn) {
     return <Navigate to="login" />;

@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
-import { useSocket } from '../../hooks/useSocket.jsx';
-import { useToastify } from '../../hooks/useToastify.jsx';
+import useSocket from '../../hooks/useSocket.jsx';
+import useToastify from '../../hooks/useToastify.jsx';
 
 const AddChannelModal = (props) => {
   const { onHide } = props;

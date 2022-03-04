@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
-import { useSocket } from '../../hooks/useSocket.jsx';
-import { useToastify } from '../../hooks/useToastify.jsx';
+import useSocket from '../../hooks/useSocket.jsx';
+import useToastify from '../../hooks/useToastify.jsx';
 
 const RenameChannelModal = (props) => {
-  const { onHide } = props;
-  const { id, name } = props.modalInfo.item;
+  const { onHide, modalInfo } = props;
+  const { id, name } = modalInfo.item;
 
   const [fieldInvalid, setFieldInvalid] = useState(false);
   const [validationError, setValidationError] = useState(null);
