@@ -63,7 +63,7 @@ const ChatPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch, loggedIn]);
 
   const channels = useSelector((state) => channelsSelectors.selectAll(state));
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
