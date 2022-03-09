@@ -15,14 +15,6 @@ import ChatMessages from './ChatMess.jsx';
 import useSocket from '../../hooks/useSocket.jsx';
 import getModal from '../Modals/modals.js';
 
-const getUserAuth = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-  return {};
-};
-
 const renderModal = (modalInfo, hideModal) => {
   if (!modalInfo.type) {
     return null;
@@ -33,11 +25,9 @@ const renderModal = (modalInfo, hideModal) => {
 };
 
 const ChatPage = () => {
-  const { loggedIn } = useAuth();
+  const { loggedIn, getUsername, getUserAuth } = useAuth();
   const dispatch = useDispatch();
   const { sendMessage, createNewChannel } = useSocket();
-
-  const [username, setUsername] = useState(null);
 
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const hideModal = () => setModalInfo({ type: null, item: null });
@@ -54,21 +44,20 @@ const ChatPage = () => {
         dispatch(channelsActions.addChannels(channels));
         dispatch(updateCurrentChannelId(currentChannelId));
         dispatch(messagesActions.addMessages(messages));
-
-        const userId = JSON.parse(localStorage.getItem('userId'));
-        if (userId) {
-          setUsername(userId.username);
-        }
       }
     };
 
     fetchData();
   }, [dispatch, loggedIn]);
 
-  const channels = useSelector((state) => channelsSelectors.selectAll(state));
+  const allChannels = useSelector((state) => channelsSelectors.selectAll(state));
   const allMessages = useSelector((state) => messagesSelectors.selectAll(state));
+
+  const defaultChannels = allChannels.filter(({ removable }) => !removable);
+  const channelsByCurrentUser = allChannels.filter(({ author }) => author === getUsername());
   const currentChannelId = useSelector((state) => state.currentChannelId.id);
   const currentMessages = allMessages.filter(({ channelId }) => channelId === currentChannelId);
+
   const currentChannel = useSelector(
     (state) => channelsSelectors.selectById(state, currentChannelId),
   );
@@ -81,7 +70,7 @@ const ChatPage = () => {
     <Container className="overflow-hidden h-100 my-4 rounded shadow">
       <Row className="h-100 bg-white">
         <ChatChannels
-          channels={channels}
+          channels={[...defaultChannels, ...channelsByCurrentUser]}
           currentChat={currentChannelId}
           createNewChannel={createNewChannel}
           showModal={showModal}
@@ -89,9 +78,8 @@ const ChatPage = () => {
         <ChatMessages
           messages={currentMessages}
           sendMessage={sendMessage}
-          username={username}
           currentChannelId={currentChannelId}
-          currentChannel={currentChannel}
+          currentChannelName={currentChannel?.name}
         />
         {
         renderModal(modalInfo, hideModal)

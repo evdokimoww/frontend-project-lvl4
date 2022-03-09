@@ -3,7 +3,7 @@ import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
 import React from 'react';
 import filter from 'leo-profanity';
-import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { ErrorBoundary, Provider as RollbarProvider } from '@rollbar/react';
 import App from './components/App.jsx';
 import store from './slices/index.js';
 import ru from './locales/ru.js';
@@ -21,7 +21,7 @@ export default async (socket) => {
   filter.add(filter.getDictionary('ru'));
 
   const rollbarConfig = {
-    accessToken: 'ce6cb18737c348a5a2788b472e04021f',
+    accessToken: `${process.env.ROLLBAR_ACCESS_TOKEN}`,
     captureUncaught: true,
     captureUnhandledRejections: true,
     payload: {

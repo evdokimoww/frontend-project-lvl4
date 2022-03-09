@@ -23,8 +23,8 @@ function LoginPage() {
   const validate = Yup.object({
     username: Yup.string()
       .required(t('loginFormValidation.noUsername'))
-      .min(3, t('loginFormValidation.usernameMaxLength'))
-      .max(20, t('loginFormValidation.usernameMaxLength')),
+      .min(3, t('loginFormValidation.usernameMinMaxLength'))
+      .max(20, t('loginFormValidation.usernameMinMaxLength')),
     password: Yup.string()
       .required(t('loginFormValidation.noPassword'))
       .min(4, t('loginFormValidation.passwordMaxLength')),
@@ -44,12 +44,13 @@ function LoginPage() {
         setAuthFailed(false);
         navigate('/');
       } catch (err) {
-        if (err.request) {
+        if (err.message === 'Network Error') {
           errorToast(t('networkError'));
         }
         if (err.isAxiosError && err.response.status === 401) {
           setAuthFailed(true);
           inputRef.current.select();
+          navigate('/login');
           return;
         }
         throw err;

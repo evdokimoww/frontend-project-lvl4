@@ -7,13 +7,14 @@ import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import useSocket from '../../hooks/useSocket.jsx';
 import useToastify from '../../hooks/useToastify.jsx';
+import useAuth from '../../hooks/useAuth.jsx';
 
 const AddChannelModal = (props) => {
   const { onHide } = props;
 
   const [fieldInvalid, setFieldInvalid] = useState(false);
   const [validationError, setValidationError] = useState('');
-
+  const { getUsername } = useAuth();
   const { createNewChannel } = useSocket();
   const inputRef = useRef();
 
@@ -40,7 +41,10 @@ const AddChannelModal = (props) => {
         setValidationError(null);
         setFieldInvalid(false);
 
-        createNewChannel(values.body);
+        createNewChannel({
+          name: values.body,
+          author: getUsername(),
+        });
         onHide();
         successToast(t('toastMessages.successCreateChannel'));
       } catch (err) {

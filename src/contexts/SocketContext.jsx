@@ -22,8 +22,8 @@ const SocketContextProvider = ({ children, socket }) => {
     });
   };
 
-  const createNewChannel = (name) => {
-    socket.emit('newChannel', { name }, (response) => {
+  const createNewChannel = ({ name, author }) => {
+    socket.emit('newChannel', { name, author }, (response) => {
       console.log(response);
     });
   };

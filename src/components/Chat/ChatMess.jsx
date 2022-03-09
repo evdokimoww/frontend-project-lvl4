@@ -2,17 +2,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import useAuth from '../../hooks/useAuth.jsx';
 
 const ChatMessages = ({
-  messages, sendMessage, username, currentChannelId, currentChannel,
+  messages, sendMessage, currentChannelId, currentChannelName,
 }) => {
   const [text, setText] = useState('');
   const [btnDisabled, setBtnDisabled] = useState(true);
 
-  const [channelName, setChannelName] = useState('');
+  const { getUsername } = useAuth();
 
   const { t } = useTranslation('translation', { keyPrefix: 'chatPage.chatMessages' });
   const lastMessageRef = useRef();
+  const inputRef = useRef();
 
   const handleChangeText = (e) => {
     const str = e.target.value;
@@ -22,21 +24,15 @@ const ChatMessages = ({
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
-    sendMessage(filter.clean(text), currentChannelId, username);
+    sendMessage(filter.clean(text), currentChannelId, getUsername());
     setText('');
     setBtnDisabled(true);
   };
 
   useEffect(() => {
-    if (currentChannel) {
-      setChannelName(currentChannel.name);
-    }
-  }, [currentChannel]);
-
-  useEffect(() => {
     const scrollToBottom = async () => {
       if (messages.length > 0) {
-        await lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
+        lastMessageRef.current.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
@@ -51,7 +47,7 @@ const ChatMessages = ({
             <strong>
               #
               {' '}
-              {channelName}
+              {currentChannelName}
             </strong>
           </p>
           <span className="text-muted">
@@ -88,6 +84,7 @@ const ChatMessages = ({
                 placeholder={t('messageInputPlaceholder')}
                 className="me-2"
                 aria-label={t('messageAriaLabel')}
+                ref={inputRef}
               />
               <Button variant="success" type="submit" disabled={btnDisabled}>{t('sendMessageButton')}</Button>
             </Form.Group>
