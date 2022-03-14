@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { actions as messageActions } from '../slices/messagesSlice.js';
 import { actions as channelActions } from '../slices/channelsSlice.js';
 import useAuth from '../hooks/useAuth.jsx';
+import logger from '../../lib/logger.js';
 
 export const SocketContext = createContext(null);
 
@@ -12,7 +13,8 @@ const SocketContextProvider = ({ children, socket }) => {
 
   useEffect(() => {
     socket.on('connect', () => {
-      console.log(socket);
+      // console.log(socket);
+      logger(socket);
     });
   }, [socket, dispatch]);
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Row } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import routes from '../../routes.js';
 import useAuth from '../../hooks/useAuth.jsx';
 
@@ -41,9 +41,11 @@ const ChatPage = () => {
         });
         const { channels, currentChannelId, messages } = res.data;
 
-        dispatch(channelsActions.addChannels(channels));
-        dispatch(updateCurrentChannelId(currentChannelId));
-        dispatch(messagesActions.addMessages(messages));
+        batch(() => {
+          dispatch(channelsActions.addChannels(channels));
+          dispatch(updateCurrentChannelId(currentChannelId));
+          dispatch(messagesActions.addMessages(messages));
+        });
       }
     };
 
